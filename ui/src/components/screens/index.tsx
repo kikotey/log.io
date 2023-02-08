@@ -1,6 +1,7 @@
 import React, { Dispatch, useContext, useEffect, useMemo, useState } from 'react'
 import { DebounceInput } from 'react-debounce-input'
 
+import { parse } from 'json-autocorrect'
 import { DispatchContext, StateContext } from '../../contexts'
 import { ActionTypes, State } from '../../reducers/types'
 import { MessageActions, MessageState } from '../../reducers/messages/types'
@@ -75,6 +76,70 @@ const ScreenMessage: React.FC<ScreenMessageProps> = ({
   )
 }
 
+function debugConsoleDisplayer(prefixMessage: string, strMessage: string) {
+       let objMessage = '' 
+
+       // prepare
+       // delete all element after the last }
+       const searchTerm = '}'
+       let substrMessage = strMessage.substr(0, strMessage.lastIndexOf(searchTerm)  + 1)
+
+       // prepare
+       // forced lint correction for react native json state
+       let bufferMessage = substrMessage.replaceAll('[', '["')
+       let bufferMessage2 = bufferMessage.replaceAll(']', '"]')
+       let bufferMessage3 = bufferMessage2.replaceAll('"]"', '"]')
+       let bufferMessage4 = bufferMessage3.replaceAll('"["', '["')
+       let bufferMessage5 = bufferMessage4.replaceAll(': undefined', ': "undefined"')
+       let bufferMessage6 = bufferMessage5.replaceAll('[" Object "]', '[Object]')
+       let bufferMessage7 = bufferMessage6.replaceAll('"ExponentPushToken["', '"ExponentPushToken[')
+       let bufferMessage8 = bufferMessage7.replaceAll('}"],','}],')
+       let bufferMessage9 = bufferMessage8.replaceAll(': ["{"',': [{"')
+       let substrMessageWithForcedLint = bufferMessage9.replaceAll('"], "referralId":', ']", "referralId":')
+
+       if (isJson(substrMessageWithForcedLint)) {
+             objMessage = substrMessageWithForcedLint
+             console.debug("jsonObject ↴ " + prefixMessage, parse(substrMessageWithForcedLint))
+       } else if (isObject(substrMessageWithForcedLint)) {
+             objMessage = strMessage
+             console.debug("object ↴ " + prefixMessage)
+             console.dir(substrMessageWithForcedLint)
+       } else {
+              // display in last chance before 
+             if (!substrMessageWithForcedLint.includes("action", 0) || !substrMessageWithForcedLint.includes("prev state", 0) || !substrMessageWithForcedLint.includes("next state", 0)) {
+                if (substrMessageWithForcedLint.trimStart().match(/[^\w]|_/) !== null) {
+                     console.debug(" Prev / Action / Next / DEBUG or other action jsonObject  ↴ ", substrMessageWithForcedLint) 
+                }
+              }
+               
+              // display in last chance after
+             let elementAfterSubstrMessage = strMessage.substr(strMessage.lastIndexOf(searchTerm) + 1)
+             if (elementAfterSubstrMessage.trimStart().match(/[^\w]|_/) !== null) {
+                if (elementAfterSubstrMessage.includes("warn", 0) || elementAfterSubstrMessage.includes("WARN", 0)) {
+                console.warn(elementAfterSubstrMessage)
+                } else if (elementAfterSubstrMessage.includes("err", 0) || elementAfterSubstrMessage.includes("ERR", 0) || (elementAfterSubstrMessage.includes("error", 0) || elementAfterSubstrMessage.includes("DEBUG", 0))) {
+                   console.error(elementAfterSubstrMessage)
+                } else {
+                   console.info(elementAfterSubstrMessage)
+                }
+            }
+       }
+}
+
+function isObject(item: string) {
+  return (typeof item === "object" && item !== null);
+}
+
+function isJson(str: string) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        //console.log(e)
+        return false;
+    }
+    return true;
+}
+
 /**
  * Renders a single screen
  */
@@ -89,6 +154,40 @@ const Screen: React.FC<ScreenProps> = ({
   const [ validMessages, setValidMessages ] = useState(messages)
   // Filter validMessages using messageFilter
   useEffect(() => {
+    if (messages[0] !== undefined) {
+       let index = messages.length - 1 
+       let dataMessages = messages[index].split('] - ')[1]
+       let prefixMessage = ''
+       let strMessage = ''
+
+       dataMessages.split(/(LOG)/).forEach(function (itemData) {
+         prefixMessage = ''
+         strMessage = ''
+         itemData.split('LOG').forEach(function (item) {
+         if (item.split('prev state ')[1] !== undefined) {
+           prefixMessage = "PREV STATE  :"
+           strMessage = item.split('prev state ')[1]
+           debugConsoleDisplayer(prefixMessage, strMessage)
+         } else if (item.split('next state ')[1] !== undefined) {
+           prefixMessage = "NEXT STATE  :"
+           strMessage = item.split('next state ')[1]
+           debugConsoleDisplayer(prefixMessage, strMessage)
+         } else if (item.split('action     ')[1] !== undefined) {
+           prefixMessage = "ACTION      :"
+           strMessage = item.split('action  ')[1]
+           debugConsoleDisplayer(prefixMessage, strMessage)
+         } else if (item.split('GROUP     action')[1] !== undefined) {
+           prefixMessage = "GROUP ACTION      :"
+           strMessage = item.split('GROUP     action')[1]
+           debugConsoleDisplayer(prefixMessage, strMessage)
+         } else {
+           strMessage = item
+           debugConsoleDisplayer(prefixMessage, strMessage)
+         }
+         });
+       });
+    }
+
     setValidMessages(
       messages.filter((msg) =>
         messageFilter === ''
