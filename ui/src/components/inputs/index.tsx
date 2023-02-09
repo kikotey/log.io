@@ -100,7 +100,7 @@ const InputManager: React.FC<InputManagerProps> = ({
           className={`input-group-toggle ${activeInputGroup === 'streams' ? 'active': ''}`}
           onClick={() => setActiveInputGroup('streams')}
         >
-          Streams
+          Debugger
         </div>
         <div
           className={`input-group-toggle ${activeInputGroup === 'sources' ? 'active': ''}`}

@@ -4,8 +4,8 @@ import path from 'path'
 import fileInput from './input'
 import { FileInputConfig, InputConfig } from './types'
 
-// Check for ~/.log.io/inputs/file.json
-const homedirConfigPath = path.resolve(os.homedir(), '.log.io/inputs/file.json')
+// Check for ~/.kiko-cli/config/file.json
+const homedirConfigPath = path.resolve(os.homedir(), '.kiko-cli/config/file.json')
 const homedirConfigPathExists = fs.existsSync(homedirConfigPath)
 
 // Optional root file path to calculate input file paths
@@ -19,7 +19,7 @@ if (!CONFIG_PATH) {
   console.error(`
 ERROR: Unable to find a configuration file.
 
-Create a configuration file at ~/.log.io/inputs/file.json,
+Create a configuration file at ~/.kiko-cli/config/file.json,
 or specify a custom path via an environment variable: LOGIO_FILE_INPUT_CONFIG_PATH.
 
 See README for configuration examples.

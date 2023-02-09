@@ -4,8 +4,8 @@ import path from 'path'
 import server from './server'
 import { ServerConfig } from './types'
 
-// Check for ~/.log.io/server.json
-const homedirConfigPath = path.resolve(os.homedir(), '.log.io/server.json')
+// Check for ~/.kiko-cli/server.json
+const homedirConfigPath = path.resolve(os.homedir(), '.kiko-cli/server.json')
 const homedirConfigPathExists = fs.existsSync(homedirConfigPath)
 
 const CONFIG_PATH = process.env.LOGIO_SERVER_CONFIG_PATH

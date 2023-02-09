@@ -1,0 +1,17 @@
+{
+  "name": "@kikotey/kikotey-debugger-cli",
+  "version": "1.0.0",
+  "description": "Console debugger CLI manager by kikotey inc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "debugger": "cli.sh"
+  },
+  "author": "jack.crosnierdebellaistre@kikotey.com",
+  "license": "ISC",
+  "dependencies": {
+    "pm2": "^5.2.2"
+  }
+}

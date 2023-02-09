@@ -199,7 +199,7 @@ const Screen: React.FC<ScreenProps> = ({
     <>
       <div className="screen-header">
         <div className="title">
-          Screen {screenIndex + 1}
+          Debugger {screenIndex + 1}
         </div>
         <div className="controls">
           <DebounceInput
@@ -257,7 +257,7 @@ const ScreenManager: React.FC<ScreenManagerProps> = ({
             className="add-screen-btn"
             onClick={addScreen}
           >
-            &#65291; Add Screen
+            &#65291; ADD NEW DEBUGGER
           </button>
         )}
       </div>

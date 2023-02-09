@@ -1,11 +1,11 @@
 {
-  "name": "log.io",
-  "version": "0.4.16",
+  "name": "@kikotey/kikotey-debugger-listener-server",
+  "version": "1.0.0",
   "description": "Listens for new messages over TCP and broadcasts to browsers via socket.io",
-  "homepage": "http://logio.org",
+  "homepage": "https://kikotey.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NarrativeScience/log.io.git"
+    "url": "https://github.com/kikotey"
   },
   "keywords": [
     "logs",
@@ -15,7 +15,7 @@
     "node.js",
     "ajax"
   ],
-  "author": "msmathers@narrativescience.com",
+  "author": "jack.crosnierdebellaistre@kikotey.com",
   "main": "lib/index.js",
   "scripts": {
     "type-check": "tsc --noEmit",
@@ -49,7 +49,7 @@
     "typescript": "^3.8.3"
   },
   "bin": {
-    "log.io-server": "./bin/log.io-server"
+    "debugger-listener-server": "bin/log.io-server"
   },
   "dependencies": {
     "@babel/runtime": "^7.8.7",
@@ -58,5 +58,8 @@
     "express-basic-auth": "^1.2.0",
     "json-autocorrect": "^0.2.1",
     "socket.io": "^2.5.0"
+  },
+  "directories": {
+    "lib": "lib"
   }
 }

@@ -1,5 +1,7 @@
-Log.io - Real-time log monitoring in your browser
+ DEBUGGER FOR REACT-NATIVE TUNNEL TO LOGS EXPO AND MORE
 =================================================
+
+## kikotey-debugger by kikotey.com - debug in Real-time log monitoring in your browser and console log
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache2.0)
 [![Version](https://img.shields.io/badge/node-%3E%3D%2012-brightgreen)](https://nodejs.org/)
@@ -9,45 +11,85 @@ Powered by [node.js](http://nodejs.org) + [socket.io](http://socket.io)
 
 ## How does it work?
 
-A **file input** watches log files for changes, sends new messages to the **server** via TCP, which broadcasts to **browsers** via socket.io.
+A **file output logs** watches log files for changes, sends new messages to the **server** via TCP, which broadcasts to **browsers** via socket.io.
 
 ## Terminology
 
-**Stream** - A logical designation for a group of messages that relate to one another.  Examples include an application name, a topic name, or a backend service name.
+**Stream loader** - It's the stream of logs consumed from a << source >> (file, blob for example) to a channel and exposed via a endpoint. The stream is a logical designation for a group of messages that relate to one another.  Examples include an application name, a topic name, or a backend service name.
 
-**Source** - A physical designation for a group of messages that originate from the same source.  Examples include a server name, a service provider name, or a filename.
+**Listener server** - It's a consummer server connected to a channel stream.  All data consumed from the stream is exposed to the front screen or to the browser console.
 
-**Input** - A (stream, source) pair.
+**Source** - The path designation for a group of messages that originate from the same source. Examples include all logs of a server, a service provider name, or a filename.
+
+**Debugger** - A (loader file stream, source) pair.
 
 While originally designed to represent backend service logs spread across multiple servers, the stream/source abstraction is intentionally open-ended to allow users to define a system topology for their specific use case.
 
-## Install & run server
+## Install & run
 
 Install via npm
 
 ```
-npm install -g log.io
+npm i -g @kikotey/kikotey-debugger-listener-server
+npm i -g @kikotey/kikotey-debugger-stream-loader
+npm i -g @kikotey/kikotey-debugger-cli
 ```
 
 Configure hosts & ports (see example below)
 
 ```
-nano ~/.log.io/server.json
+vim ~/.kiko-cli/server.json
+vim ~/.kiko-cli/config/file.json
 ```
 
 Run server
 
 ```
-log.io-server
+debugger-listener-server
+debugger-stream-loader
+
+or with cli
+
+debugger start
 ```
 
 Browse to http://localhost:6688
 
-## Install & run input
+## Install & run 
 
 Begin sending log messages to the server via:
-- [log.io-file-input](https://www.npmjs.com/package/log.io-file-input)
+- [kikote-debug-server](https://www.npmjs.com/package/@kikotey/kikote-debug-server?activeTab=readme)
 - A custom TCP input that implements the interface described below
+
+
+## With CLI
+
+(After you create all configuration files. See step 1 and step 2 in the next section)
+
+Run debugger
+```
+debugger start
+```
+
+Restart debugger
+```
+debugger restart
+```
+
+Stop debugger
+```
+debugger stop
+```
+
+
+## Without CLI
+
+### STEP 1
+```
+kikotey-debugger-listener-server
+```
+
+Browse to http://localhost:6688
 
 ## Server configuration
 
@@ -97,3 +139,50 @@ Remove an existing input
 ```
 -input|streamName1|sourceName1\0
 ```
+
+### STEP 2 
+
+```
+kikotey-debugger-stream-loader
+```
+
+Browse to http://localhost:6689
+
+## File path input configuration
+
+Inputs are created by associating file paths with stream and source names in a configuration file.  By default, the file input looks for configuration in `~/.kiko-cli/config/file.json`, and can be overridden with the environment variable `LOGIO_FILE_INPUT_CONFIG_PATH`.
+
+Input paths can be a file path, directory path or a [glob](https://en.wikipedia.org/wiki/Glob_(programming)).  Additionally, watcher options can be provided for more fine-grained control over file watching mechanics and performance. See the [chokidar](https://github.com/paulmillr/chokidar) documentation for more information.
+
+Sample configuration file:
+
+```json
+{
+  "messageServer": {
+    "host": "127.0.0.1",
+    "port": 6689
+  },
+  "inputs": [
+    {
+      "source": "server1",
+      "stream": "app1",
+      "config": {
+        "path": "log.io-demo/file-generator/app1-server1.log"
+      }
+    },
+    {
+      "source": "server2",
+      "stream": "system-logs",
+      "config": {
+        "path": "/var/log/**/*.log",
+        "watcherOptions": {
+          "ignored": "*.txt",
+          "depth": 99,
+        }
+      }
+    }
+  ]
+}
+
+```
+
