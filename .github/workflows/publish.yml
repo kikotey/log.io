@@ -17,11 +17,11 @@ jobs:
       uses: actions/setup-node@master
       with:
         node-version: 14.0.0
+    - run: cd ./server && ls
     - id: publish
       uses: JS-DevTools/npm-publish@v1
       with:
         token: ${{ secrets.NPM_AUTH_TOKEN }}
-      working-directory: ./server
     - name: Create Release
       if: steps.publish.outputs.type != 'none'
       id: create_release
