@@ -9,19 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@master
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@master
       with:
         node-version: 14.0.0
     - id: publish
-      uses: JS-DevTools/npm-publish@v3
+      uses: JS-DevTools/npm-publish@v1
       with:
         token: ${{ secrets.NPM_AUTH_TOKEN }}
     - name: Create Release
       if: steps.publish.outputs.type != 'none'
       id: create_release
-      uses: actions/create-release@v3
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
