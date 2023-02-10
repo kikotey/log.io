@@ -8,7 +8,7 @@ jobs:
     name: npm-publish-server-folder
     runs-on: ubuntu-latest
     steps:
-    - run: ./setup.sh setup
+    - run: ls
     - name: Checkout repository
       uses: actions/checkout@master
     - name: Set up Node.js
