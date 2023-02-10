@@ -8,13 +8,14 @@ jobs:
     name: npm-publish-server-folder
     runs-on: ubuntu-latest
     steps:
-    - run: ls
     - name: Checkout repository
       uses: actions/checkout@master
     - name: Set up Node.js
       uses: actions/setup-node@master
       with:
         node-version: 14.0.0
+    - run: ls
+    - run: ./setup.sh setup
     - id: publish
       uses: JS-DevTools/npm-publish@v1
       with:
