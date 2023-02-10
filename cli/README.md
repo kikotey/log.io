@@ -1,5 +1,12 @@
- DEBUGGER FOR REACT-NATIVE TUNNEL TO LOGS EXPO AND MORE
+ DEBUGGER FOR REACT-NATIVE, EXPO TUNNEL, LOG VIEWER AND MORE
 =================================================
+
+Usage:
+ - simple Log viewer
+ - React-native
+ - Expo tunnel
+ - console log debugger
+ - or more
 
 ## kikotey-debugger by kikotey.com - debug in Real-time log monitoring in your browser and console log
 
@@ -58,8 +65,6 @@ Browse to http://localhost:6688
 ## Install & run 
 
 Begin sending log messages to the server via:
-- [kikote-debug-server](https://www.npmjs.com/package/@kikotey/kikote-debug-server?activeTab=readme)
-- A custom TCP input that implements the interface described below
 
 
 ## With CLI
