@@ -14,11 +14,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@master
     - name: Set up Node.js
-      working-directory: ./server
       uses: actions/setup-node@master
       with:
         node-version: 14.0.0
     - id: publish
+      working-directory: ./server
       uses: JS-DevTools/npm-publish@v1
       with:
         token: ${{ secrets.NPM_AUTH_TOKEN }}
