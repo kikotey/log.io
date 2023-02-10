@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@master
       with:
-        node-version: [ 16.x ]
+        node-version: 16.0.0
     - id: publish
       uses: JS-DevTools/npm-publish@v1
       with:
