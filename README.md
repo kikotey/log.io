@@ -1,12 +1,17 @@
  DEBUGGER FOR REACT-NATIVE, EXPO TUNNEL, LOG VIEWER AND MORE
 =================================================
 
-Usage:
- - simple Log viewer
- - React-native
- - Expo tunnel
- - console log debugger
- - or more
+New Usages:
+ - file reader
+ - simple Log Viewer
+ - React-native Log Viewer
+ - Expo tunnel Debugger
+ - All applications that need the console debugger
+ - and more
+
+Inspired of the work of the [ NarrativeScience-old TEAM log.io](https://github.com/NarrativeScience-old/log.io)
+
+New Usages:
 
 ## kikotey-debugger by kikotey.com - debug in Real-time log monitoring in your browser and console log
 
