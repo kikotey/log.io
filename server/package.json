@@ -1,6 +1,6 @@
 {
   "name": "@kikotey/kikotey-debugger-listener-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Listens for new messages over TCP and broadcasts to browsers via socket.io",
   "homepage": "https://kikotey.com",
   "repository": {

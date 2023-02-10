@@ -1,6 +1,6 @@
 {
   "name": "@kikotey/kikotey-debugger-stream-loader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Watches files or other sources on disk and sends data to stream on a server",
   "homepage": "https://kikotey.com",
   "repository": {

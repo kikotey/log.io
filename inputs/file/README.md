@@ -11,8 +11,6 @@ New Usages:
 
 Inspired of the work of the [ NarrativeScience-old TEAM log.io](https://github.com/NarrativeScience-old/log.io)
 
-New Usages:
-
 ## kikotey-debugger by kikotey.com - debug in Real-time log monitoring in your browser and console log
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache2.0)

@@ -1,6 +1,6 @@
 {
   "name": "@kikotey/kikotey-debugger-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Console debugger CLI manager by kikotey inc",
   "main": "index.js",
   "scripts": {

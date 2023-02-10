@@ -34,33 +34,9 @@ jobs:
         token: ${{ secrets.NPM_AUTH_TOKEN }}
         package: ./cli/package.json
         access: 'public'
-    - name: Create Release server listener
-      if: steps.publishserverlistener.outputs.type != 'none'
-      id: create_release_server_listener
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.publishserverlistener.outputs.version }}
-        release_name: Release ${{ steps.publishserverlistener.outputs.version }}
-        body: ${{ steps.publishserverlistener.outputs.version }}
-        draft: false
-        prerelease: false
-    - name: Create Release stream loader
-      if: steps.publishstreamloader.outputs.type != 'none'
-      id: create_release_stream_loader
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.publishstreamloader.outputs.version }}
-        release_name: Release ${{ steps.publishstreamloader.outputs.version }}
-        body: ${{ steps.publishstreamloader.outputs.version }}
-        draft: false
-        prerelease: false
-    - name: Create Release CLI
-      if: steps.publishcli.outputs.type != 'none'
-      id: create_release_cli
+    - name: Create Release kikotey debugger
+      if: steps.publishserverlistener.outputs.type != 'none' && steps.publishstreamloader.outputs.type != 'none' && steps.publishcli.outputs.type != 'none'
+      id: create_release_kikotey_debugger
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
